@@ -54,7 +54,7 @@ readTrainingDF <- function(path, n_lines){
   result
 }
 
-plot(graph_test)
+#plot(graph_test)
 
 
 # create an example graph
