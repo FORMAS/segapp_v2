@@ -3,8 +3,8 @@ GraphsExample
 George C. G. Barbosa
 13 de setembro de 2016
 
-Como Plotar Os Grafos das Relações Extraídas
-============================================
+How to plot graphs from relations
+=================================
 
 ### Importing Library's
 
@@ -55,20 +55,26 @@ graphs <- lapply(nlp_tags, function(l){
 Plotting some graphs
 --------------------
 
-    ## Grafo 4
-
-    ## Grafo 5
+    ## Grafo 45
 
 ![](GraphsExample_files/figure-markdown_github/plot%20graphs-1.png)
 
-    ## Grafo 6
-
-    ## Grafo 7
-
-    ## Grafo 8
-
-    ## Grafo 9
-
-    ## Grafo 10
+    ## Grafo 46
 
 ![](GraphsExample_files/figure-markdown_github/plot%20graphs-2.png)
+
+    ## Grafo 47
+
+![](GraphsExample_files/figure-markdown_github/plot%20graphs-3.png)
+
+    ## Grafo 48
+
+![](GraphsExample_files/figure-markdown_github/plot%20graphs-4.png)
+
+    ## Grafo 49
+
+![](GraphsExample_files/figure-markdown_github/plot%20graphs-5.png)
+
+    ## Grafo 50
+
+![](GraphsExample_files/figure-markdown_github/plot%20graphs-6.png)

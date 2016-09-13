@@ -5,7 +5,7 @@ date: "13 de setembro de 2016"
 output: github_document
 ---
 
-# Como Plotar Os Grafos das Relações Extraídas
+# How to plot graphs from relations
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -55,7 +55,7 @@ graphs <- lapply(nlp_tags, function(l){
 
 ## Plotting some graphs
 ```{r plot graphs, echo=FALSE }
-for(i in 4:10){
+for(i in 45:50){
   cat(paste('Grafo', i, sep = ' '))
   plot(graphs[[i]])
 }
