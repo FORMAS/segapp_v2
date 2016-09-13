@@ -1,80 +1,28 @@
-f1 <- function(df_training){
-  length(df_training$en1[1])
-  if(nchar(df_training$sentence[1]) - nchar(df_training$en1[1])+nchar(df_training$rel[1])+nchar(df_training$en2[1]) < 30){
-    return(1)
-  }
-  return(0)
+f1 <- function(sent_tags){
+  lapply(sent_tags, function(l){
+    #l['y']
+    if((nchar(l['sentence']) - (nchar(l['en1'])+nchar(l['rel'])+nchar(l['en2']))) < 30){
+      print(nchar(l['sentence']) - (nchar(l['en1'])+nchar(l['rel'])+nchar(l['en2'])) )
+      return(1)
+    }
+    return(0)
+  })
 }
 
-f4 <- function(nlp_tags){
-  last_prepo <- NULL
-  for(i in 1:nrow(nlp_tags)){
-    if (nlp_tags$pos[i] %in% c('IN', 'TO')) {
-      last_prepo <- nlp_tags$words[i] 
+f_prep <- function(sent_tags, prep){
+  lapply(sent_tags, function(l){
+    last_prepo <- NULL
+    for(i in 1:nrow(l)){
+      if (l$pos[i] %in% c('IN', 'TO')) {
+        last_prepo <- l$words[i] 
+      }
     }
-  }
-  if(!is.null(last_prepo)){
-    if(tolower(last_prepo)=='in')
-      return(1)
-  }
-  0
-}
-
-f5 <- function(nlp_tags){
-  last_prepo <- NULL
-  for(i in 1:nrow(nlp_tags)){
-    if (nlp_tags$pos[i] %in% c('IN', 'TO')) {
-      last_prepo <- nlp_tags$words[i] 
+    if(!is.null(last_prepo)){
+      if(tolower(last_prepo)==prep)
+        return(1)
     }
-  }
-  if(!is.null(last_prepo)){
-    if(tolower(last_prepo)=='for')
-      return(1)
-  }
-  return(0)
-}
-
-f6 <- function(nlp_tags){
-  last_prepo <- NULL
-  for(i in 1:nrow(nlp_tags)){
-    if (nlp_tags$pos[i] %in% c('IN', 'TO')) {
-      last_prepo <- nlp_tags$words[i] 
-    }
-  }
-  if(!is.null(last_prepo)){
-    if(tolower(last_prepo)=='on')
-      return(1)
-  }
-  0
-}
-
-f7 <- function(nlp_tags){
-  last_prepo <- NULL
-  for(i in 1:nrow(nlp_tags)){
-    if (nlp_tags$pos[i] %in% c('IN', 'TO')) {
-      last_prepo <- nlp_tags$words[i] 
-    }
-  }
-  if(!is.null(last_prepo)){
-    if(tolower(last_prepo)=='of')
-      return(1)
-  }
-  0
-}
-
-
-f8 <- function(nlp_tags){
-  last_prepo <- NULL
-  for(i in 1:nrow(nlp_tags)){
-    if (nlp_tags$pos[i] %in% c('IN', 'TO')) {
-      last_prepo <- nlp_tags$words[i] 
-    }
-  }
-  if(!is.null(last_prepo)){
-    if(tolower(last_prepo)=='to')
-      return(1)
-  }
-  0
+    return(0)
+  })
 }
 
 f9 <- function(sentence, en1, rel){
