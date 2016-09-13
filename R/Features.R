@@ -25,52 +25,37 @@ f_prep <- function(sent_tags, prep){
   })
 }
 
-f9 <- function(sentence, en1, rel){
-  en1_rel <- paste(en1, rel, collapse = ' ', sep=' ')
-  class(en1_rel)
-  if(gregexpr(en1_rel, sentence)[[1]][[1]]==-1){
+f9 <- function(sent_tags){
+  lapply(sent_tags, function(l){
+    en1_rel <- paste(l['en1'], l['rel'], collapse = ' ', sep=' ')
+    if(gregexpr(en1_rel, l['sentence'])[[1]]!=-1){
+      return(1)
+    }
     return(0)
-  }
-  return(1)
-}
-
-f10 <- function(sentence, rel, en2){
-  rel_en2 <- paste(rel, en2, collapse = ' ', sep=' ')
-  if(gregexpr(rel_en2, sentence)[[1]][[1]]==-1){
-    return(0)
-  }
-  return(1)
-}
-
-f11 <- function(df_training){
-  ?mapply
-  mapply(function(l){
-    return(1)
-    #en1_rel_en2 <- paste(l[2], l[3], l[4], collapse = ' ', sep=' ')
-    
-    #if(gregexpr(en1_rel_en2, l[5])==-1){
-    #  return(1)
-    #}
-    #return(0)
-  }, df_training[1:20,])
-  
-  ?apply
-  tmp <- apply(X = df_training[2:2,], 1,FUN = function(l){ 
-    en1_rel_en2 <- paste(l[2], l[3], l[4], collapse = ' ', sep=' ')
-    
-    #if(gregexpr(en1_rel_en2, l[5])==-1){
-    #  return(1)
-    #}
-    #return(0)
   })
-  
-  en1_rel_en2 <- paste(en1, rel, en2, collapse = ' ', sep=' ')
-  if([[1]][[1]]==-1){
-    return(0)
-  }
-  return(1)
 }
 
-f12 <- function(tags_f12){
-  sapply(tags_f12, function(l){ ifelse(length(l)>34, 1, 0) })
+f10 <- function(sent_tags){
+  lapply(sent_tags, function(l){
+    rel_en2 <- paste(l['rel'], l['en2'], collapse = ' ', sep=' ')
+    if(gregexpr(rel_en2, l['sentence'])[[1]]!=-1){
+      return(1)
+    }
+    return(0)
+  })
+}
+
+f11 <- function(sent_tags){
+  lapply(sent_tags, function(l){
+    en1_rel_en2 <- paste(l['en1'], l['rel'], l['en2'], collapse = ' ', sep=' ')
+    if(gregexpr(en1_rel_en2, l['sentence'])[[1]]!=-1){
+      return(1)
+    }
+    return(0)
+  })
+}
+
+
+f12 <- function(sent_tags){
+  sapply(sent_tags, function(l){ ifelse(nrow(l[l$type=='word',]) < 30, 1, 0) })
 }

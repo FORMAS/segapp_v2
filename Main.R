@@ -17,7 +17,6 @@ source(file = 'R/Graphs.R')
 source(file = 'R/Features.R')
 
 
-df_training[[1]]['y']
 ###################### TRAINING SET GRAPHS
 ############### READING IT
 df_training <- readTrainingDF("data/nyt-extractions-all-labeled.txt", 2292)
@@ -54,8 +53,11 @@ e_sim <- ldply(1:19, function(i){#length(training_set$y), function(i) {
 f1(nlp_tags[[49]])
 f2(nlp_tags[[49]])
 #FOR F12
-tags_f12 <- tag(df_training$sentence)
-f12(tags_f12)
+
+tags_f12 <- lapply(df_training, function(l){
+  tag(l['sentence'])
+})
+f12(tags_f12[[1]][tags_f12[[1]]$type=='word'])
 
 #################################################
 # EXAMPLE SENTENCE
