@@ -2,11 +2,6 @@ library(openNLP)
 library(NLP)
 require(plyr)
 
-sent_token_ann <- Maxent_Sent_Token_Annotator()
-word_token_ann <- Maxent_Word_Token_Annotator()
-pos_tag_ann <- Maxent_POS_Tag_Annotator()
-chunk_ann <- Maxent_Chunk_Annotator()
-
 
 setwd('/Users/ohack/segapp_v2/')
 source(file = 'R/NLPTasks.R')
@@ -21,25 +16,13 @@ source(file = 'R/Features.R')
 ############### READING IT
 df_training <- readTrainingDF("data/nyt-extractions-all-labeled.txt", 2292)
 #df_training$rel <- lapply(X = df_training$rel, as.String)
-tags <- lapply(df_training, function(l){
-  tag(l['rel'])
-})
+
 head(tags)
 ########## CONSTRUCT NLP VECTOR
-nlp_tags <- list()
-for (i in 1:length(df_training)){
-  tags_word <- tags[[i]][tags[[i]]$type=='word']
-  nlp_tags[[i]] <- ext_nlp_tags(tags_word$features)
-  rel <- as.String(df_training[[i]]['rel'])
-  nlp_tags[[i]]$words <- rel[tags_word]
-  #nlp_tags[[i]]$sentence <- df_training$sentence[1]
-  #nlp_tags[[i]]$y <- df_training$y[i]
-}
+
 nlp_tags[[2]]
 ######################### CONSTRUCTING GRAPHS
-graphs <- lapply(nlp_tags, function(l){
-  createGraph(l$pos)
-})
+
 #4-10
 plot(graphs[[15]])
 ##################### COMPARING FUNCTIONS GRAPHS
@@ -73,9 +56,10 @@ nlp_tags[nlp_tags$pos=='POS',]$chunk <- 'I-NP'
 nlp_tags[nlp_tags$pos%in%c(',', '.'),]$chunk <- 'O'
 # ADDING WORDS TO THE VECTOR
 nlp_tags$words <- s[words]
-
+# EXTRACT RELATIONS
 relations <- extractRelations(nlp_tags)
-graph_test <- createGraph(relations[[1]]$rel$pos)
+# CREATE A GRAPH
+testGraph <- createGraph(relations[[1]]$rel$pos)
 
 #printByIndex(s, words, extraction_i)
 

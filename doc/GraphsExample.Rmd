@@ -1,0 +1,60 @@
+---
+title: "GraphsExample"
+author: "George C. G. Barbosa"
+date: "13 de setembro de 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Importing Library's 
+```{r import, warning=F}
+library(openNLP)
+library(NLP)
+library(plyr)
+```
+
+### Sourcing Files + Loading Sentences
+```{r source_load, warning=F, message=F}
+setwd('/Users/ohack/segapp_v2/')
+source(file = 'R/NLPTasks.R')
+source(file = 'R/Patterns.R')
+source(file = 'R/Extractions.R')
+source(file = 'R/Util.R')
+source(file = 'R/Graphs.R')
+source(file = 'R/Features.R')
+
+df_training <- readTrainingDF("data/nyt-extractions-all-labeled.txt", 200)
+```
+
+### Extract NLP Tags for each sentence
+```{r extract_nlp, warning=F}
+tags <- lapply(df_training, function(l){
+  tag(l['rel'])
+})
+
+nlp_tags <- list()
+for (i in 1:length(df_training)){
+  tags_word <- tags[[i]][tags[[i]]$type=='word']
+  nlp_tags[[i]] <- ext_nlp_tags(tags_word$features)
+  rel <- as.String(df_training[[i]]['rel'])
+  nlp_tags[[i]]$words <- rel[tags_word]
+}
+```
+
+### Construct graphs
+```{r construct_graphs, warning=F}
+graphs <- lapply(nlp_tags, function(l){
+  createGraph(l$pos)
+})
+```
+
+## Plotting some graphs
+```{r plot graphs, echo=FALSE }
+for(i in 45:55){
+  cat(paste('Grafo', i, sep = ' '))
+  plot(graphs[[i]])
+}
+```
