@@ -1,25 +1,22 @@
----
-title: "GraphsExample"
-author: "George C. G. Barbosa"
-date: "13 de setembro de 2016"
-output: github_document
----
+GraphsExample
+================
+George C. G. Barbosa
+13 de setembro de 2016
 
-# Como Plotar Os Grafos das Relações Extraídas
+Como Plotar Os Grafos das Relações Extraídas
+============================================
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+### Importing Library's
 
-### Importing Library's 
-```{r import, warning=F}
+``` r
 library(openNLP)
 library(NLP)
 library(plyr)
 ```
 
 ### Sourcing Files + Loading Sentences
-```{r source_load, warning=F, message=F}
+
+``` r
 setwd('/Users/ohack/segapp_v2/')
 source(file = 'R/NLPTasks.R')
 source(file = 'R/Patterns.R')
@@ -32,7 +29,8 @@ df_training <- readTrainingDF("data/nyt-extractions-all-labeled.txt", 200)
 ```
 
 ### Extract NLP Tags for each sentence
-```{r extract_nlp, warning=F}
+
+``` r
 tags <- lapply(df_training, function(l){
   tag(l['rel'])
 })
@@ -47,16 +45,30 @@ for (i in 1:length(df_training)){
 ```
 
 ### Construct graphs
-```{r construct_graphs, warning=F}
+
+``` r
 graphs <- lapply(nlp_tags, function(l){
   createGraph(l$pos)
 })
 ```
 
-## Plotting some graphs
-```{r plot graphs, echo=FALSE }
-for(i in 4:10){
-  cat(paste('Grafo', i, sep = ' '))
-  plot(graphs[[i]])
-}
-```
+Plotting some graphs
+--------------------
+
+    ## Grafo 4
+
+    ## Grafo 5
+
+![](GraphsExample_files/figure-markdown_github/plot%20graphs-1.png)
+
+    ## Grafo 6
+
+    ## Grafo 7
+
+    ## Grafo 8
+
+    ## Grafo 9
+
+    ## Grafo 10
+
+![](GraphsExample_files/figure-markdown_github/plot%20graphs-2.png)

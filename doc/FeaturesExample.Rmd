@@ -2,7 +2,7 @@
 title: "FeaturesExample"
 author: "George C. G. Barbosa"
 date: "13 de setembro de 2016"
-output: html_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
