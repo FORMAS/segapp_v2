@@ -100,6 +100,12 @@ extractRelations <- function(nlp_tags) {
     # DETECTING THE RIGHT CHUNK
     chunks_i <- ext_np_chunks_index(nlp_tags, F)
     for (j in 1:length(chunks_i)){
+      # IF THERE IS A NP TO THE RIGHT OF REL (WITH CROSS LINKS)
+      if(chunks_i[[j]]$x > extraction_i[[i]]$x && !chunks_i[[j]]$x > extraction_i[[i]]$y){
+        en2 <- chunks_i[[j]]
+        en2$x <- extraction_i[[i]]$y+1
+        break
+      }
       # IF THERE IS A NP TO THE RIGHT OF REL
       if(chunks_i[[j]]$x > extraction_i[[i]]$y){
         en2 <- chunks_i[[j]]

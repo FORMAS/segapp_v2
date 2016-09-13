@@ -1,11 +1,9 @@
 ---
-title: "GraphsExample"
+title: "FeaturesExample"
 author: "George C. G. Barbosa"
 date: "13 de setembro de 2016"
 output: html_document
 ---
-
-# Como Plotar Os Grafos das Relações Extraídas
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -46,17 +44,25 @@ for (i in 1:length(df_training)){
 }
 ```
 
-### Construct graphs
-```{r construct_graphs, warning=F}
-graphs <- lapply(nlp_tags, function(l){
-  createGraph(l$pos)
+### Construct Features
+```{r construct_features, warning=F}
+library(knitr)
+tags_f12 <- lapply(df_training, function(l){
+  tag(l['sentence'])
 })
-```
-
-## Plotting some graphs
-```{r plot graphs, echo=FALSE }
-for(i in 4:10){
-  cat(paste('Grafo', i, sep = ' '))
-  plot(graphs[[i]])
-}
+features <- list(
+  f1=f1(df_training), 
+  f2=f_prep(nlp_tags, 'for'),
+  f3=f_prep(nlp_tags, 'on'),
+  f4=f_prep(nlp_tags, 'of'),
+  f5=f_prep(nlp_tags, 'to'),
+  f6=f_prep(nlp_tags, 'in'),
+  f9=f9(df_training),
+  f10=f10(df_training),
+  f11=f11(df_training),
+  f12=f12(tags_f12),
+  y=sapply(df_training, function(l){ as.numeric(l[['y']]) })
+)
+features <- as.data.frame(features)
+kable(features, caption = 'Features Construídas')
 ```

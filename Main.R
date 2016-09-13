@@ -12,19 +12,6 @@ source(file = 'R/Graphs.R')
 source(file = 'R/Features.R')
 
 
-###################### TRAINING SET GRAPHS
-############### READING IT
-df_training <- readTrainingDF("data/nyt-extractions-all-labeled.txt", 2292)
-#df_training$rel <- lapply(X = df_training$rel, as.String)
-
-head(tags)
-########## CONSTRUCT NLP VECTOR
-
-nlp_tags[[2]]
-######################### CONSTRUCTING GRAPHS
-
-#4-10
-plot(graphs[[15]])
 ##################### COMPARING FUNCTIONS GRAPHS
 test <- graph.intersection(graph_test, graphs[[100]], byname=F, keep.all.vertices = F)
 e_sim <- ldply(1:19, function(i){#length(training_set$y), function(i) {
@@ -44,11 +31,11 @@ f12(tags_f12[[1]][tags_f12[[1]]$type=='word'])
 
 #################################################
 # EXAMPLE SENTENCE
-s <- as.String("The committee is planning to hear from him this month.")
+s <- as.String("The final decision about UFM has still space for mayor George")
 # PIPELINE EXTRACTIONS
 tags <- tag(s)
 # SUBSET WORDS
-words <- tags[[1]][tags[[1]]$type=='word']
+words <- tags[tags$type=='word']
 # EXTRACT FEATURES [POS, CHUNK]
 nlp_tags <- ext_nlp_tags(words$features)
 # CORRECTING OPENNLP ERROS
@@ -60,6 +47,7 @@ nlp_tags$words <- s[words]
 relations <- extractRelations(nlp_tags)
 # CREATE A GRAPH
 testGraph <- createGraph(relations[[1]]$rel$pos)
+plot(testGraph)
 
 #printByIndex(s, words, extraction_i)
 

@@ -21,7 +21,7 @@ readTrainingDF <- function(path, n_lines){
   #no_lines = 2200
   correct_length = 5
   file_con = file(path, "r")
-  file_con = file("data/nyt-extractions-all-labeled.txt", "r")
+  #file_con = file("data/nyt-extractions-all-labeled.txt", "r")
   result <- list()
   j <- 1
   for(i in 1:no_lines){
