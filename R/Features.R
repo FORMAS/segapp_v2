@@ -10,7 +10,7 @@ f1 <- function(sent_tags){
 }
 
 f_prep <- function(sent_tags, prep){
-  sapply(nlp_tags, function(l){
+  sapply(sent_tags, function(l){
     # Convert all words to characters (the one's that had only one word were character and the others were String)
     l$words <- as.character(l$words)
     l <- l[l[['pos']] %in% c('IN', 'TO'), ]

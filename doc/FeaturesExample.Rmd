@@ -28,7 +28,7 @@ source(file = 'R/Util.R')
 source(file = 'R/Graphs.R')
 source(file = 'R/Features.R')
 
-df_training <- readTrainingDF("data/nyt-extractions-all-labeled.txt", 200)
+df_training <- readTrainingDF("data/nyt-extractions-all-labeled.txt", 2000)
 ```
 
 ### Extract NLP Tags for each sentence

@@ -2,6 +2,8 @@ library(openNLP)
 library(NLP)
 require(plyr)
 
+#install.packages('aod')
+library(aod)
 
 setwd('/Users/ohack/segapp_v2/')
 source(file = 'R/NLPTasks.R')
@@ -11,27 +13,18 @@ source(file = 'R/Util.R')
 source(file = 'R/Graphs.R')
 source(file = 'R/Features.R')
 
-
 ##################### COMPARING FUNCTIONS GRAPHS
-test <- graph.intersection(graph_test, graphs[[100]], byname=F, keep.all.vertices = F)
-e_sim <- ldply(1:19, function(i){#length(training_set$y), function(i) {
-  comp <- graph.intersection(graph_test, graphs[i], keep.all.vertices = F)
-  print(c(ecount(comp), vcount(comp), ecount(training_set$graphs[[i]]), vcount(training_set$graphs[[i]]), ecount(graph_test), vcount(graph_test)))
-})
-################## CALCULATING FEATURES
-
-f1(nlp_tags[[49]])
-f2(nlp_tags[[49]])
-#FOR F12
-
-tags_f12 <- lapply(df_training, function(l){
-  tag(l['sentence'])
-})
-f12(tags_f12[[1]][tags_f12[[1]]$type=='word'])
+#test <- graph.intersection(graph_test, graphs[[100]], byname=F, keep.all.vertices = F)
+#e_sim <- ldply(1:19, function(i){#length(training_set$y), function(i) {
+#  comp <- graph.intersection(graph_test, graphs[i], keep.all.vertices = F)
+#  print(c(ecount(comp), vcount(comp), ecount(training_set$graphs[[i]]), vcount(training_set$graphs[[i]]), ecount(graph_test), vcount(graph_test)))
+#})
+#####################
 
 #################################################
 # EXAMPLE SENTENCE
-s <- as.String("The final decision about UFM has still space for mayor George")
+#s <- as.String("The final decision about UFM has still space for mayor George")
+s <- as.String("He died en route to hospital.")
 # PIPELINE EXTRACTIONS
 tags <- tag(s)
 # SUBSET WORDS
@@ -46,8 +39,31 @@ nlp_tags$words <- s[words]
 # EXTRACT RELATIONS
 relations <- extractRelations(nlp_tags)
 # CREATE A GRAPH
-testGraph <- createGraph(relations[[1]]$rel$pos)
+ <- createGraph(relations[[1]]$rel$pos)
 plot(testGraph)
-
 #printByIndex(s, words, extraction_i)
-
+# CONVERT A RELATION TO A EXTRACTION
+df_test <- list(c(en1=paste(relations[[1]]$en1$words, collapse = ' '),
+                  rel=paste(relations[[1]]$rel$words, collapse = ' '),
+                  en2=paste(relations[[1]]$en2$words, collapse = ' '),
+                  sentence=s))
+# EXTRACT FEATURES
+tmp <- list(
+  f1=f1(df_test), 
+  f2=f_prep(list(nlp_tags), 'for'),
+  f3=f_prep(list(nlp_tags), 'on'),
+  f4=f_prep(list(nlp_tags), 'of'),
+  f5=f_prep(list(nlp_tags), 'to'),
+  f6=f_prep(list(nlp_tags), 'in'),
+  f9=f9(df_test),
+  f10=f10(df_test),
+  f11=f11(df_test),
+  f12=f12(list(words))
+)
+# TRAIN A CLASSIFIER
+cls <- glm(y ~ f1 + f2 + f3 + f4 + f5 + f6 + f9 + f10 + f11 + f12, data = features, family = "binomial")
+summary(cls)
+# Confidence Intervals
+confint(cls)
+# PREDICT THE NEW EXTRACTION
+predict(cls, newdata = tmp, type = "response")

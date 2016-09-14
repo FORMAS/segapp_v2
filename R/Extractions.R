@@ -115,7 +115,7 @@ extractRelations <- function(nlp_tags) {
     if(!(is.null(en1) |is.null(en2))) {
       print(c('en1:', s[words][en1$x:en1$y], 'rel:', s[words][rel$x:rel$y], 'en2:', s[words][en2$x:en2$y]))
       
-      relations[[length(relations)+1]] <- list(en1=nlp_tags[en1$x:en1$y,], rel=nlp_tags[rel$x:rel$y,], en=nlp_tags[en2$x:en2$y,])
+      relations[[length(relations)+1]] <- list(en1=nlp_tags[en1$x:en1$y,], rel=nlp_tags[rel$x:rel$y,], en2=nlp_tags[en2$x:en2$y,])
     }
   }
   relations
