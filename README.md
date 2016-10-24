@@ -7,3 +7,5 @@ Open Information Extraction through heuristics + classification by features/seg
 
 
 #### Acknowledgements
+
+This project was partially funded by FAPESB
