@@ -39,7 +39,7 @@ nlp_tags$words <- s[words]
 # EXTRACT RELATIONS
 relations <- extractRelations(nlp_tags)
 # CREATE A GRAPH
- <- createGraph(relations[[1]]$rel$pos)
+testGraph <- createGraph(relations[[1]]$rel$pos)
 plot(testGraph)
 #printByIndex(s, words, extraction_i)
 # CONVERT A RELATION TO A EXTRACTION
