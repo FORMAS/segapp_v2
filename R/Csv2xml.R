@@ -1,9 +1,4 @@
-install.packages('XML')
-
-library(XML)
-
 ts <- read.csv2('output/nyt_tags.csv', sep='%', header = T)
-
 # CONCATENAR OS COMPONENTES DA EXTRACAO
 ts$seg <- paste(ts$pos_en1, ts$pos_rel, ts$pos_en2)
 # TABELA DE FREQUENCIA
@@ -20,6 +15,7 @@ sum(freq_dup$Freq) + sum(freq_nao_dup$Freq)
 ts <- ts[sample(nrow(ts), 100),]
 
 xml <- xmlTree()
+
 xml$addTag("exemplos", close=FALSE)
 for (i in 2:nrow(ts)) {
   xml$addTag("sentenca", close=FALSE)

@@ -1,4 +1,4 @@
-library(openNLP)
+library('openNLP')
 
 sent_token_ann <- Maxent_Sent_Token_Annotator()
 word_token_ann <- Maxent_Word_Token_Annotator()

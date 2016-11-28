@@ -1,9 +1,19 @@
+install.packages('openNLP')
+install.packages('NLP')
+install.packages('plyr')
+install.packages("openNLPmodels.en", repos = "http://datacube.wu.ac.at/", type = "source")
+install.packages('aod')
+install.packages('igraph')
+install.packages('XML')
+
+install.packages('rJava')
+
 library(openNLP)
 library(NLP)
-require(plyr)
-
-#install.packages('aod')
+library(plyr)
 library(aod)
+library(igraph)
+library(XML)
 
 setwd('/Users/ohack/segapp_v2/')
 source(file = 'R/NLPTasks.R')
