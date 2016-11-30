@@ -51,5 +51,14 @@ nlp_tags <- sapply(1:length(df_training), function(i){
   list(en1=en1, pos_en1=pos_en1, rel=rel, pos_rel=pos_rel, en2=en2, pos_en2=pos_en2, sentence=sentence, pos_sentence=pos_sentence, y=as.numeric(df_training[[i]]['y']) )
 })
 
+# 100
 nlp_tags <- t(as.data.frame(nlp_tags))
-write.table(nlp_tags, sep = '%', row.names = F, file = 'output/nyt_tags.csv')
+
+tmp <- nlp_tags[sample(nrow(nlp_tags), 100),]
+write.table(tmp, sep = '#', row.names = F, file = 'output/nyt_tags_sample_100.csv')
+# 200
+tmp <- nlp_tags[sample(nrow(nlp_tags), 200),]
+write.table(nlp_tags, sep = '#', row.names = F, file = 'output/nyt_tags_sample_200.csv')
+# 300
+tmp <- nlp_tags[sample(nrow(nlp_tags), 300),]
+write.table(nlp_tags, sep = '#', row.names = F, file = 'output/nyt_tags_sample_300.csv')

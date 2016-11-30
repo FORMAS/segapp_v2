@@ -1,3 +1,4 @@
+# PACKAGES INSTALLATION
 install.packages('openNLP')
 install.packages('NLP')
 install.packages('plyr')
@@ -5,24 +6,20 @@ install.packages("openNLPmodels.en", repos = "http://datacube.wu.ac.at/", type =
 install.packages('aod')
 install.packages('igraph')
 install.packages('XML')
-
-install.packages('rJava')
-
+# LIBRARY LOADING
 library(openNLP)
 library(NLP)
 library(plyr)
 library(aod)
 library(igraph)
 library(XML)
-
-setwd('/Users/ohack/segapp_v2/')
+# SOURCING FILES
 source(file = 'R/NLPTasks.R')
 source(file = 'R/Patterns.R')
 source(file = 'R/Extractions.R')
 source(file = 'R/Util.R')
 source(file = 'R/Graphs.R')
 source(file = 'R/Features.R')
-
 ##################### COMPARING FUNCTIONS GRAPHS
 #test <- graph.intersection(graph_test, graphs[[100]], byname=F, keep.all.vertices = F)
 #e_sim <- ldply(1:19, function(i){#length(training_set$y), function(i) {
