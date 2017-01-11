@@ -1,6 +1,6 @@
 ts <- read.csv2('output/nyt_tags.csv', sep='%', header = T)
 # SAMPLING
-ts <- ts[sample(nrow(ts), 100),]
+ts <- ts[sample(nrow(ts), 200),]
 
 xml <- xmlTree()
 xml$addTag("exemplos", close=FALSE)
@@ -24,9 +24,9 @@ xml$closeTag()
 xml_backup <- saveXML(xml)
 
 xm_b_t <- strsplit(xml_backup, '\n')
-write.table(x = saveXML(xml), file = 'output/sample_nyt_tags.xml', row.names = F, col.names = F)
+write.table(x = saveXML(xml), file = 'output/sample_nyt_tags_200.xml', row.names = F, col.names = F)
 
-writeLines(text = saveXML(xml), con = 'output/sample_nyt_tags.xml')
+writeLines(text = saveXML(xml), con = 'output/sample_nyt_tags_200.xml')
 
 ############## Results for the erick method
 install.packages('ROCR')
