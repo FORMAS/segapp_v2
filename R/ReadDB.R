@@ -20,5 +20,6 @@ readTrainingDF <- function(path, n_lines){
       j<-j+1
     }
   }
+  close(file_con)
   result
 }

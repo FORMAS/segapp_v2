@@ -2,32 +2,23 @@
 install.packages('openNLP')
 install.packages('NLP')
 install.packages('plyr')
-install.packages("openNLPmodels.en", repos = "http://datacube.wu.ac.at/", type = "source")
 install.packages('aod')
-install.packages('igraph')
 install.packages('XML')
+# MODEL INSTALLATION
+install.packages("openNLPmodels.en", repos = "http://datacube.wu.ac.at/", type = "source")
 # LIBRARY LOADING
 library(openNLP)
 library(NLP)
 library(plyr)
 library(aod)
-library(igraph)
 library(XML)
 # SOURCING FILES
 source(file = 'R/NLPTasks.R')
 source(file = 'R/Patterns.R')
 source(file = 'R/Extractions.R')
 source(file = 'R/Util.R')
-source(file = 'R/Graphs.R')
+source(file = 'R/ReadDB.R')
 source(file = 'R/Features.R')
-##################### COMPARING FUNCTIONS GRAPHS
-#test <- graph.intersection(graph_test, graphs[[100]], byname=F, keep.all.vertices = F)
-#e_sim <- ldply(1:19, function(i){#length(training_set$y), function(i) {
-#  comp <- graph.intersection(graph_test, graphs[i], keep.all.vertices = F)
-#  print(c(ecount(comp), vcount(comp), ecount(training_set$graphs[[i]]), vcount(training_set$graphs[[i]]), ecount(graph_test), vcount(graph_test)))
-#})
-#####################
-
 #################################################
 # EXAMPLE SENTENCE
 #s <- as.String("The final decision about UFM has still space for mayor George")

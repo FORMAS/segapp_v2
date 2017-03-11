@@ -78,6 +78,7 @@ ext_np_chunks_index <- function(nlp_tags, keepPronouns=T){
   chunks_i
 }
 #mylist[[length(mylist)+1]] <- obj
+
 extractRelations <- function(nlp_tags) {
   relations <- list()
   extraction_i <- ext_pattern_index(nlp_tags)
@@ -113,8 +114,9 @@ extractRelations <- function(nlp_tags) {
       }
     }
     if(!(is.null(en1) |is.null(en2))) {
+      # print relation
       print(c('en1:', s[words][en1$x:en1$y], 'rel:', s[words][rel$x:rel$y], 'en2:', s[words][en2$x:en2$y]))
-      
+      # add relation to its vector
       relations[[length(relations)+1]] <- list(en1=nlp_tags[en1$x:en1$y,], rel=nlp_tags[rel$x:rel$y,], en2=nlp_tags[en2$x:en2$y,])
     }
   }
